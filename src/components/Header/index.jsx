@@ -11,10 +11,10 @@ export default function Header() {
       <Link to="/">
         <FaHome size={'25px'} />
       </Link>
-      <Link to="user/">
+      <Link to="/register">
         <FaUser size={'20px'} />
       </Link>
-      <Link to="login/">
+      <Link to="/login">
         <FaSignInAlt size={'20px'} />
       </Link>
       <p>{isLoggedIn ? 'logged' : 'sigin'}</p>

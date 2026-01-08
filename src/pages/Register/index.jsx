@@ -5,7 +5,7 @@ export default function Login() {
   
   return (
     <Container>
-      <Title>Login:</Title>
+      <Title>Register:</Title>
     </Container>
   );
 }

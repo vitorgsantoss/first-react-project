@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 const api = axios.create({
-  //   baseURL: 'https://vitorsantos.pythonanywhere.com/api/v1',
-  baseURL: 'http://localhost:8000/api/v1/',
+  baseURL: 'http://localhost:3001/',
 });
 export default api;
