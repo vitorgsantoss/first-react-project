@@ -2,31 +2,36 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   isLoggedIn: false,
+  token: null,
+  user: {},
+  isLoading: false
 };
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    buttonClickedRequest() {
-      console.log('Doing request');
+    loginRequest(state, action) {
+      console.log(state);
+      console.log(action.payload);
+
     },
 
-    buttonClickedSuccess(state) {
+    loginSuccess(state, action) {
       console.log('success');
-      state.isLoggedIn = !state.isLoggedIn;
+      // state.isLoggedIn = !state.isLoggedIn;
     },
 
-    buttonClickedFailure() {
+    loginFailure(state, action) {
       console.log('Request Failure');
     },
   },
 });
 
 export const {
-  buttonClickedRequest,
-  buttonClickedFailure,
-  buttonClickedSuccess,
+  loginRequest,
+  loginSuccess,
+  loginFailure,
 } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;

@@ -36,6 +36,11 @@ export const GlobalStyle = createGlobalStyle`
         border: none;
         border-radius: 4px;
         font-weight: 700;
+        transition: all 300ms;
+
+        &:hover{
+            filter: brightness(90%);
+        }
     }
 
     a{

@@ -6,7 +6,7 @@ export default function reducersPersister(reducers) {
   const rootReducer = combineReducers(reducers);
   const persistedReducers = persistReducer(
     {
-      key: 'REACT_BASE',
+      key: 'FIRST_PROJECT',
       storage,
       whitelist: ['auth'],
     },
