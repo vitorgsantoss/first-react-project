@@ -43,7 +43,11 @@ export default function Login() {
     } catch (e) {
       const errors = get(e, 'response.data.errors', []);
       
-      errors.map(error => toast.error(error))
+      errors.map(error => toast.error(error));
+      console.log(`Errors: ${errors}`)
+      if (errors.length == []) {
+        toast.error('Server error!');
+      }
     }
   }
   return (

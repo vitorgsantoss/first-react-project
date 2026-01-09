@@ -13,6 +13,10 @@ dist-ssr
 *.local
 
 # Editor directories and files
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7ff5d7254ec9041329f3c2f92b5bf817a9335803
 .idea
 .DS_Store
 *.suo
