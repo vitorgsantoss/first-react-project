@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 export default function Header() {
-  // const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   return (
     <Nav>
@@ -17,7 +17,7 @@ export default function Header() {
       <Link to="/login">
         <FaSignInAlt size={'20px'} />
       </Link>
-      {/* <p>{isLoggedIn ? 'logged' : 'sigin'}</p> */}
+      <p>{isLoggedIn ? 'logged' : 'sigin'}</p>
     </Nav>
   );
 }

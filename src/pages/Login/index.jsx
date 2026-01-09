@@ -4,14 +4,17 @@ import { Container } from '../../styles/GlobalStyles';
 import { toast } from 'react-toastify';
 import { isEmail } from 'validator';
 import { get } from 'lodash';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { loginRequest } from '../../store/slices/auth';
+import Loading from '../../components/Loading';
 
 export default function Login(props) {
   const dispatch = useDispatch();
-  const prevPath = get(props, 'location.state.prevPath', '/')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
+  const prevPath = get(props, 'location.state.prevPath', '/');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const isLoading = useSelector(state => state.auth.isLoading)
+
 
   async function handleSubmit(event){
     event.preventDefault();
@@ -37,9 +40,10 @@ export default function Login(props) {
   
   return (
     <Container>
+      <Loading isLoading={isLoading}/>
       <h1>Login</h1>
       <Form onSubmit={handleSubmit}>
-        <label htmlFor="email" >E-mail:
+        <label htmlFor="email">E-mail:
           <input 
             type="email"  
             placeholder='Provide your email' 
@@ -47,7 +51,7 @@ export default function Login(props) {
             onChange={e => setEmail(e.target.value)}
           />
         </label>
-        <label htmlFor="password" >Password:
+        <label htmlFor="password">Password:
           <input 
             type="password"  
             placeholder='Provide your password' 

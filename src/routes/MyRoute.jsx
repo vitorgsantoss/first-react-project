@@ -1,7 +1,8 @@
+import { useSelector } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
 
 export default function MyRoute({ component, isClosed, ...rest }) {
-  const isLoggedIn = false;
+  const isLoggedIn = useSelector(state=> state.auth.isLoggedIn);
   if (!isLoggedIn && isClosed) {
     return (
       <Redirect

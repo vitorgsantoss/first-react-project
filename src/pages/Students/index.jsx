@@ -1,24 +1,30 @@
 import React, {useEffect, useState} from 'react';
-import { Title, StudentsContainer, ProfilePicture } from './styled';
+import { StudentsContainer, ProfilePicture } from './styled';
 import { get } from 'lodash';
 import { Container } from '../../styles/GlobalStyles';
 import axios from '../../services/axios';
 import { FaEdit, FaUserCircle, FaWindowClose } from 'react-icons/fa';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import * as colors from '../../config/colors';
+import Loading from '../../components/Loading';
 
-export default function Login() {
+export default function Students() {
+
+  const [isLoading, setIsLoading] = useState(false);
   const [students, setStudents] = useState([]);
   useEffect(()=>{
     async function getData(){
+      setIsLoading(true);
       const response = await axios.get('/alunos');
-      setStudents(response.data)
+      setStudents(response.data);
+      setIsLoading(false);
     }
     getData();
   }, []);
   return (
     <Container>
-      <Title>Students:</Title>
+      <Loading isLoading={isLoading}/>
+      <h1>Students</h1>
       
      <StudentsContainer>
        {students.map(student => {
@@ -33,7 +39,7 @@ export default function Login() {
           </ProfilePicture>
           <span className='name'>{student.nome}</span>
           <span className='email'>{student.email}</span>
-          <Link to={`/aluno/edit${student.id}`}><FaEdit size={16} color={colors.primaryColor}/></Link>
+          <Link to={`/student/${student.id}/edit`}><FaEdit size={16} color={colors.primaryColor}/></Link>
           <FaWindowClose color={colors.primaryColor}/>
         </div>
        }

@@ -6,11 +6,13 @@ import { isEmail } from 'validator';
 import axios from '../../services/axios';
 import history from '../../services/history';
 import { get } from 'lodash';
+import Loading from '../../components/Loading';
 
-export default function Login() {
+export default function Register() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [ isLoading, setIsLoading] = useState(false);
 
   async function handleSubmit(event){
     event.preventDefault();
@@ -33,6 +35,7 @@ export default function Login() {
 
     if (formErrors) return;
 
+    setIsLoading(true);
     try{
       await axios.post('/users/', {
         nome:name, password, email
@@ -48,10 +51,13 @@ export default function Login() {
       if (errors.length == []) {
         toast.error('Server error!');
       }
+    } finally {
+      setIsLoading(false);
     }
   }
   return (
     <Container>
+      <Loading isLoading={isLoading}/>
       <h1>Register</h1>
       <Form onSubmit={handleSubmit}>
       <label htmlFor="name" >Name:

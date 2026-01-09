@@ -1,9 +1,5 @@
 import styled from 'styled-components';
 
-export const Title = styled.h1`
-  color: blue;
-`;
-
 export const StudentsContainer = styled.div`
   margin-top: 20px;
   
