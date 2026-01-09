@@ -7,14 +7,15 @@ import { get } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { loginRequest } from '../../store/slices/auth';
 
-export default function Login() {
+export default function Login(props) {
   const dispatch = useDispatch();
+  const prevPath = get(props, 'location.state.prevPath', '/')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
   async function handleSubmit(event){
     event.preventDefault();
-    const formErrors = false;
+    let formErrors = false;
     
     if (password.length < 6 || password.length > 50) {
       formErrors = true;
@@ -29,7 +30,7 @@ export default function Login() {
     if (formErrors) return;
 
     dispatch(loginRequest({
-      email, password
+      email, password, prevPath
     }))
 
   }

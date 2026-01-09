@@ -11,19 +11,20 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    loginRequest(state, action) {
-      console.log(state);
-      console.log(action.payload);
-
+    loginRequest(state) {
+      state.isLoading = true;
     },
 
-    loginSuccess(state, action) {
-      console.log('success');
-      // state.isLoggedIn = !state.isLoggedIn;
+    loginSuccess(state, action){
+      const { token, user } = action.payload;
+      state.isLoading = false;
+      state.isLoggedIn = true;
+      state.token = token;
+      state.user = user;
     },
 
-    loginFailure(state, action) {
-      console.log('Request Failure');
+    loginFailure() {
+      return initialState
     },
   },
 });
