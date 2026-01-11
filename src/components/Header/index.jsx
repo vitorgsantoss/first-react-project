@@ -1,11 +1,23 @@
 import { Nav } from './styled';
 import { FaHome, FaUser, FaSignInAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import history from '../../services/history';
+import { loginFailure } from '../../store/slices/auth'
+import { toast } from 'react-toastify';
 
 export default function Header() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-
+  const dispatch = useDispatch();
+  function handleLoginButton(event) {
+    event.preventDefault();
+    if (!isLoggedIn){
+      history.push('/login');
+    } else {
+      dispatch(loginFailure());
+      toast.success('User logged out');
+    }
+  }
   return (
     <Nav>
       <Link to="/">
@@ -14,7 +26,7 @@ export default function Header() {
       <Link to="/register">
         <FaUser size={'20px'} />
       </Link>
-      <Link to="/login">
+      <Link to="/" onClick={handleLoginButton}>
         <FaSignInAlt size={'20px'} />
       </Link>
       <p>{isLoggedIn ? 'logged' : 'sigin'}</p>

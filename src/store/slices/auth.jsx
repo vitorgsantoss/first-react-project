@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import history from '../../services/history';
 import { toast } from 'react-toastify';
+import axios from '../../services/axios';
 
 export const initialState = {
   isLoggedIn: false,
@@ -27,6 +28,7 @@ const authSlice = createSlice({
     },
 
     loginFailure() {
+      delete axios.defaults.headers.Authorization;
       return initialState
     },
     registerRequest() {},
