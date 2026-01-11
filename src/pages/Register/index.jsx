@@ -3,16 +3,22 @@ import { Form } from './styled';
 import { Container } from '../../styles/GlobalStyles';
 import { toast } from 'react-toastify';
 import { isEmail } from 'validator';
-import axios from '../../services/axios';
-import history from '../../services/history';
-import { get } from 'lodash';
 import Loading from '../../components/Loading';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerRequest } from '../../store/slices/auth';
 
 export default function Register() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const {
+    id, 
+    nome:userName, 
+    email:userEmail,
+  } = useSelector(state => state.auth.user);
+  const [name, setName] = useState(userName || '');
+  const [email, setEmail] = useState(userEmail || '');
   const [password, setPassword] = useState('');
+
   const [ isLoading, setIsLoading] = useState(false);
+  const dispatch = useDispatch();
 
   async function handleSubmit(event){
     event.preventDefault();
@@ -23,7 +29,7 @@ export default function Register() {
       toast.error('The name must be between 3 and 255 characters long.')
     }
 
-    if (password.length < 6 || password.length > 50) {
+    if ( !id && password.length < 6 || password.length > 50) {
       formErrors = true;
       toast.error('The password must be between 6 and 50 characters long.')
     }
@@ -36,24 +42,8 @@ export default function Register() {
     if (formErrors) return;
 
     setIsLoading(true);
-    try{
-      await axios.post('/users/', {
-        nome:name, password, email
-      });
-      toast.success('User registered');
-      history.push('/');
-
-    } catch (e) {
-      const errors = get(e, 'response.data.errors', []);
-      
-      errors.map(error => toast.error(error));
-      console.log(`Errors: ${errors}`)
-      if (errors.length == []) {
-        toast.error('Server error!');
-      }
-    } finally {
-      setIsLoading(false);
-    }
+    dispatch(registerRequest({ id, name, email, password }))
+    setIsLoading(false);
   }
   return (
     <Container>
@@ -84,7 +74,7 @@ export default function Register() {
           onChange={e => setPassword(e.target.value)}
         />
       </label>
-      <button type='submit'>Create my account</button>
+      <button type='submit'>{id?"Update my account" : "Create my account"}</button>
       </Form>
     </Container>
   );
