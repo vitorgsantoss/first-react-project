@@ -9,6 +9,7 @@ import * as colors from '../../config/colors';
 import Loading from '../../components/Loading';
 // import axios from '../../services/axios'
 import Confirmation from '../../components/Confirmation';
+import { toast } from 'react-toastify';
 
 export default function Students() {
 
@@ -26,9 +27,17 @@ export default function Students() {
     getData();
   }, []);
 
-  function handleDelete () {
+  async function handleDelete () {
     setVisible(false);
-    console.log(`Cheguei aqui no handle delete e o id do student é ${studentID}`)
+    try{
+      await axios.delete(`/alunos/${studentID}`);
+      setStudents(students.filter(student => student.id !== studentID))
+      toast.success('Studant deleted!')
+
+    } catch {
+      toast.error('Error during deletation!')
+      
+    }
   }
 
   return (
