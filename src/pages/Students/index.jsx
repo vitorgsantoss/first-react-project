@@ -7,7 +7,6 @@ import { FaEdit, FaUserCircle, FaWindowClose } from 'react-icons/fa';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import * as colors from '../../config/colors';
 import Loading from '../../components/Loading';
-// import axios from '../../services/axios'
 import Confirmation from '../../components/Confirmation';
 import { toast } from 'react-toastify';
 

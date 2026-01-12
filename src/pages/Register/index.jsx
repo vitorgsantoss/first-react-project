@@ -17,33 +17,33 @@ export default function Register() {
   const [email, setEmail] = useState(userEmail || '');
   const [password, setPassword] = useState('');
 
-  const [ isLoading, setIsLoading] = useState(false);
+  const isLoading = useSelector(state => state.auth.isLoading)
+  console.log(isLoading);
   const dispatch = useDispatch();
-
+  
   async function handleSubmit(event){
     event.preventDefault();
     let formErrors = false;
-
+    
     if (name.length < 3 || name.length > 255) {
       formErrors = true;
       toast.error('The name must be between 3 and 255 characters long.')
     }
-
+    
     if ( !id && password.length < 6 || password.length > 50) {
       formErrors = true;
       toast.error('The password must be between 6 and 50 characters long.')
     }
-
+    
     if (!isEmail(email)) {
       formErrors = true;
       toast.error('This email is invalid!')
     }
-
+    
     if (formErrors) return;
-
-    setIsLoading(true);
-    dispatch(registerRequest({ id, name, email, password }))
-    setIsLoading(false);
+    
+    dispatch(registerRequest({ id, name, email, password }))    
+    console.log(isLoading);
   }
   return (
     <Container>

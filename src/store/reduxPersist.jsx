@@ -8,8 +8,7 @@ export default function reducersPersister(reducers) {
     {
       key: 'FIRST_PROJECT',
       storage,
-      whitelist: ['auth'],
-      // whitelist: ['auth', 'register'],
+      whitelist: ['auth']
     },
     rootReducer
   );

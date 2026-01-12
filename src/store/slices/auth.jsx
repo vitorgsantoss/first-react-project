@@ -29,9 +29,12 @@ const authSlice = createSlice({
 
     loginFailure() {
       delete axios.defaults.headers.Authorization;
-      return initialState
+      return initialState;
     },
-    registerRequest() {},
+    
+    registerRequest(state) {
+      state.isLoading = true;
+    },
 
     registerSuccess(state, action){
       const { email, nome } = action.payload;
@@ -42,6 +45,7 @@ const authSlice = createSlice({
         history.push('/login');
         return initialState;
       }
+      state.isLoading = false;
     },
   },
 });
