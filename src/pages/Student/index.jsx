@@ -1,6 +1,7 @@
-import { Title, Form } from './styled';
-import { Container } from '../../styles/GlobalStyles';
+import { Form, ProfilePhoto } from './styled';
+import { Container, Title } from '../../styles/GlobalStyles';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { get } from 'lodash';
 import axios from '../../services/axios';
 import history from '../../services/history';
@@ -10,6 +11,7 @@ import { isEmail, isNumeric } from 'validator';
 import { isValidName } from '../../validators'
 import { useDispatch } from 'react-redux';
 import { loginFailure } from '../../store/slices/auth';
+import { FaEdit, FaUserCircle } from 'react-icons/fa';
 
 export default function Student({match}) {
   const [firstName, setFirstName] = useState('');
@@ -19,24 +21,26 @@ export default function Student({match}) {
   const [weight, setWeight] = useState(0);
   const [height, setHeight] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
+  const [photo, setPhoto] = useState(null);
+  const [id, setId] = useState(null)
   const dispatch = useDispatch();
 
-  const id = get(match, 'params.id', 0)
+  
 
   useEffect(() =>{
+    setId(get(match, 'params.id', 0));
     if (!id) return;
     setIsLoading(true);
     async function getData() {
       try{
         const { data } = await axios.get(`/alunos/${id}`);
-        const photo = get(data, 'Fotos[0].url', '');
+        setPhoto(get(data, 'Fotos[0].url', null));
         setFirstName(data.nome);
         setLastName(data.sobrenome);
         setEmail(data.email);
         setAge(data.idade);
         setWeight(data.peso);
         setHeight(data.altura);
-        console.log(`Esta é a url da Foto: ${photo}`)
       } catch (err){
         const status = get(err, 'response.status', 0)
         const errors = get(err, 'response.data.errors', [])
@@ -116,6 +120,12 @@ export default function Student({match}) {
     <Container>
       <Loading isLoading={isLoading}/>
       <Title>Student</Title>
+      { id && <ProfilePhoto>
+        {photo?<img src={photo} />:
+        <FaUserCircle size={180}/>}
+        <Link to={'/'}>< FaEdit size={20}/></Link>
+      </ ProfilePhoto >}
+
       <Form onSubmit={handleSubmit}>
         <label htmlFor="firstName">First Name</label>
         <input 

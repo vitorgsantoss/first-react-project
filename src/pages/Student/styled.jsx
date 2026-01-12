@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 import * as colors from '../../config/colors'
 
-export const Title = styled.h1`
-  text-align: center;
-`;
-
 export const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -30,6 +26,31 @@ export const Form = styled.form`
   button{
     margin-top: 20px
   }
-  
-  
+`;
+
+export const ProfilePhoto = styled.div`
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  position: relative;
+  margin-top: 20px;
+
+  img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+  }
+  a{
+    display: flex;
+    color: #000;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    right: 30%;
+    width: 27px;
+    height: 27px;
+    background: ${colors.primaryColor};
+    border-radius: 5px;
+  }
 `;

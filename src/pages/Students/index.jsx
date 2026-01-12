@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { StudentsContainer, ProfilePicture } from './styled';
 import { get } from 'lodash';
-import { Container } from '../../styles/GlobalStyles';
+import { Container, Title } from '../../styles/GlobalStyles';
 import axios from '../../services/axios';
 import { FaEdit, FaUserCircle, FaWindowClose } from 'react-icons/fa';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
@@ -43,7 +43,7 @@ export default function Students() {
     <Container>
       <Confirmation visible={visible} onConfirm={handleDelete} onCancel={() => setVisible(false)}/>
       <Loading isLoading={isLoading}/>
-      <h1>Students</h1>
+      <Title>Students</Title>
       
      <StudentsContainer>
        {students.map(student => {
