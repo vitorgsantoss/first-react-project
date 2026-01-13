@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import * as colors from '../../config/colors'
 
 export const StudentsContainer = styled.div`
   margin-top: 20px;
@@ -29,4 +31,10 @@ export const ProfilePicture = styled.div`
     height: 36px;
     border-radius: 50%;
   }
+`;
+
+export const NewStudentLink = styled(Link)`
+  display: flex;
+  justify-content: end;
+  color: ${colors.primaryColor}
 `;

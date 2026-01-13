@@ -102,7 +102,7 @@ export default function Student({match}) {
           peso: weight, 
           altura:height
         });
-        history.push(`student/${data.id}/edit`);
+        history.push(`/student/${data.id}/edit`);
       }
       toast.success(`Student ${id?"changed": "added"} successfully`);
     } catch (err) {
