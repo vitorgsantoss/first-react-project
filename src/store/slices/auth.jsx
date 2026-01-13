@@ -38,15 +38,18 @@ const authSlice = createSlice({
 
     registerSuccess(state, action){
       const { email, nome } = action.payload;
-      if (email === state.user.email) {
-        state.user.nome = nome;
-      } else {
+      if (email !== state.user.email) {
         toast.success('Log in again!');
         history.push('/login');
         return initialState;
       }
+      state.user.nome = nome;
       state.isLoading = false;
-    },
+      },
+
+    registerFailure(state) {
+      state.isLoading = false;
+    }    
   },
 });
 
@@ -55,7 +58,8 @@ export const {
   loginSuccess,
   loginFailure,
   registerRequest,
-  registerSuccess
+  registerSuccess,
+  registerFailure
 } = authSlice.actions;
 
 export const authReducer = authSlice.reducer;

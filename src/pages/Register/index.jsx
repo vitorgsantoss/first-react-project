@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import { Form, NewStudentLink } from './styled';
 import { Container } from '../../styles/GlobalStyles';
 import { toast } from 'react-toastify';
@@ -6,6 +6,7 @@ import { isEmail } from 'validator';
 import Loading from '../../components/Loading';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerRequest } from '../../store/slices/auth';
+import { isValidName, isValidPassword } from '../../validators';
 
 export default function Register() {
   const {
@@ -16,25 +17,21 @@ export default function Register() {
   const isLoading = useSelector(state => state.auth.isLoading);
   const dispatch = useDispatch();
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState(userName);
+  const [email, setEmail] = useState(userEmail);
   const [password, setPassword] = useState('');
   
-  useEffect(()=>{
-    setName(userName);
-    setEmail(userEmail);
-  }, [])
   
   async function handleSubmit(event){
     event.preventDefault();
     let formErrors = false;
     
-    if (name.length < 3 || name.length > 255) {
+    if (!isValidName(name)) {
       formErrors = true;
       toast.error('The name must be between 3 and 255 characters long.')
     }
     
-    if ( !id && password.length < 6 || password.length > 50) {
+    if (!id && !isValidPassword(password)) {
       formErrors = true;
       toast.error('The password must be between 6 and 50 characters long.')
     }

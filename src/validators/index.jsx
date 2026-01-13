@@ -3,3 +3,7 @@ export function isValidName(name){
     return true;
 }
 
+export function isValidPassword(password){
+    if (password.length < 6 || password.length > 50) return false;
+    return true;
+}

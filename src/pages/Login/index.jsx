@@ -7,6 +7,7 @@ import { get } from 'lodash';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginRequest } from '../../store/slices/auth';
 import Loading from '../../components/Loading';
+import { isValidPassword } from '../../validators'
 
 export default function Login(props) {
   const dispatch = useDispatch();
@@ -14,13 +15,14 @@ export default function Login(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const isLoading = useSelector(state => state.auth.isLoading)
+  
 
 
   async function handleSubmit(event){
     event.preventDefault();
     let formErrors = false;
     
-    if (password.length < 6 || password.length > 50) {
+    if (!isValidPassword(password)) {
       formErrors = true;
       toast.error('The password must be between 6 and 50 characters long.')
     }

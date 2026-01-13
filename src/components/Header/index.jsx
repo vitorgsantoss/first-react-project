@@ -68,7 +68,7 @@ export default function Header() {
       <ProfileIcon ref={dropdownRef}>
         {user.id ? (
           <>
-            <p onClick={toggleDropdown}>{user.nome[0]}</p>
+            <p onClick={toggleDropdown}>{user.nome[0].toUpperCase()}</p>
             {showDropdown && (
               <DropdownMenu>
                 <div className="dropdown-header">
@@ -79,7 +79,7 @@ export default function Header() {
                 
                 <button className="logout" onClick={handleLogout}>
                   <FaSignOutAlt size={16} />
-                  <span>Sair</span>
+                  <span>Exit</span>
                 </button>
               </DropdownMenu>
             )}
