@@ -28,7 +28,7 @@ export default function Student({match}) {
   
 
   useEffect(() =>{
-    setId(get(match, 'params.id', 0));
+    setId(get(match, 'params.id', null));
     if (!id) return;
     setIsLoading(true);
     async function getData() {
@@ -52,7 +52,7 @@ export default function Student({match}) {
       }
     }
     getData();
-  }, [id])
+  }, [match, id])
 
 
   async function handleSubmit(e) {
@@ -123,7 +123,7 @@ export default function Student({match}) {
       { id && <ProfilePhoto>
         {photo?<img src={photo} />:
         <FaUserCircle size={180}/>}
-        <Link to={'/'}>< FaEdit size={20}/></Link>
+        <Link to={`/photos/${id}`}>< FaEdit size={20}/></Link>
       </ ProfilePhoto >}
 
       <Form onSubmit={handleSubmit}>
