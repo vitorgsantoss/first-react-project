@@ -18,8 +18,8 @@ export const Form = styled.form`
     display: none;
   }
   img{
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
   }
   p{
     font-size: 18px;

@@ -12,7 +12,6 @@ export default function* login(action) {
     yield put(authActions.loginSuccess(response.data));
     toast.success('User logged!')
     axios.defaults.headers.Authorization = `Bearer ${response.data.token}`;
-    console.log(prevPath)
     history.push(prevPath);
   } catch {
     yield put(authActions.loginFailure());

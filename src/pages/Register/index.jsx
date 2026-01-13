@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { Form } from './styled';
+import React, {useEffect, useState} from 'react';
+import { Form, NewStudentLink } from './styled';
 import { Container } from '../../styles/GlobalStyles';
 import { toast } from 'react-toastify';
 import { isEmail } from 'validator';
@@ -10,16 +10,20 @@ import { registerRequest } from '../../store/slices/auth';
 export default function Register() {
   const {
     id, 
-    nome:userName, 
-    email:userEmail,
+    nome:userName='', 
+    email:userEmail='',
   } = useSelector(state => state.auth.user);
-  const [name, setName] = useState(userName || '');
-  const [email, setEmail] = useState(userEmail || '');
-  const [password, setPassword] = useState('');
-
-  const isLoading = useSelector(state => state.auth.isLoading)
-  console.log(isLoading);
+  const isLoading = useSelector(state => state.auth.isLoading);
   const dispatch = useDispatch();
+
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  
+  useEffect(()=>{
+    setName(userName);
+    setEmail(userEmail);
+  }, [])
   
   async function handleSubmit(event){
     event.preventDefault();
@@ -43,7 +47,6 @@ export default function Register() {
     if (formErrors) return;
     
     dispatch(registerRequest({ id, name, email, password }))    
-    console.log(isLoading);
   }
   return (
     <Container>
@@ -62,18 +65,21 @@ export default function Register() {
         <input 
           type="email"  
           placeholder='Provide your email' 
-          value={email} 
+          value={email}
           onChange={e => setEmail(e.target.value)}
         />
       </label>
-      <label htmlFor="password" >Password:
-        <input 
-          type="password"  
-          placeholder='Provide your password' 
-          value={password} 
-          onChange={e => setPassword(e.target.value)}
-        />
-      </label>
+      { id?
+        <NewStudentLink to={"/"}>Change Password</NewStudentLink> :
+        <label htmlFor="password" >Password:
+          <input 
+            type="password"  
+            placeholder='Provide your password' 
+            value={password} 
+            onChange={e => setPassword(e.target.value)}
+          />
+        </label>
+      }
       <button type='submit'>{id?"Update my account" : "Create my account"}</button>
       </Form>
     </Container>
